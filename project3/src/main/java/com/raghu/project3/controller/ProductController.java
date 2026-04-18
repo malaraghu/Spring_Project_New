@@ -25,6 +25,7 @@ public class ProductController {
         /*SINCE WE ARE NOT DOING THE @RequestBody so for that we need to add annotation called @RequestBody*/
          productService.addProduct(p);
     }
+    //added in the office
 
     @PutMapping("/product")
     public String updateProd(@RequestBody ProductDetails p){
