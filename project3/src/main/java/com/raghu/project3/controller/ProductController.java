@@ -9,14 +9,14 @@ import java.util.List;
 
 @RestController
 public class ProductController {
-    @Autowired
+    @Autowired  //field injection added in office
     private ProductService productService;
 
     @RequestMapping("/product")
     public List<ProductDetails> getProducts(){
         return productService.getProducts();
     }
-    @GetMapping("/product/{pId}") // TO USE {Pid} THIS ONE WE NEED TO @PathVariable to work
+    @GetMapping("/product/{pId}") // TO USE {Pid} THIS FOR @PathVariable to work
     public ProductDetails getProductById(@PathVariable int pId){
         return productService.getProductById(pId);
     }
@@ -25,7 +25,6 @@ public class ProductController {
         /*SINCE WE ARE NOT DOING THE @RequestBody so for that we need to add annotation called @RequestBody*/
          productService.addProduct(p);
     }
-    //added in the office
 
     @PutMapping("/product")
     public String updateProd(@RequestBody ProductDetails p){
