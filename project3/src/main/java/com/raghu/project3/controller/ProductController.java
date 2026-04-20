@@ -28,7 +28,7 @@ public class ProductController {
 
     @PutMapping("/product")
     public String updateProd(@RequestBody ProductDetails p){
-        System.out.println("------update-----"+p);
+        System.out.println("------update-2222----"+p);
         return productService.updateProd(p);
     }
 
