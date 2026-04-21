@@ -1,9 +1,13 @@
 package com.raghu.project3.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import org.springframework.stereotype.Component;
 
 @Component
+@Entity
 public class ProductDetails {
+    @Id
     private int pId;
     private String pName;
     private int pCost;
