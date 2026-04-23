@@ -5,6 +5,8 @@ import com.raghu.project3.model.ProductDetails;
 import com.raghu.project3.service.ProductDetailsService;
 import com.raghu.project3.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,7 +25,7 @@ public class ProductController {
         return productDetailsService.getProductsDetails();
     }
     @GetMapping("/product/{pId}") // TO USE {Pid} THIS FOR @PathVariable to work
-    public ProductDetails getProductById(@PathVariable int pId){
+    public ProductDetails getProductById1(@PathVariable int pId){
         return productDetailsService.getProductById(pId);
     }
     @PostMapping("/product")
@@ -46,7 +48,17 @@ public class ProductController {
 //    =============================================================================================================
 
     @GetMapping("/getproducts")
-    public List<Product> getProducts(){
-        return prodServ.getProducts();
+    public ResponseEntity<List<Product>> getProducts(){
+        System.out.println("-----------raghu---------");
+        return new ResponseEntity<>(prodServ.getProducts(), HttpStatus.OK);
+    }
+
+    @GetMapping("/getproducts/{id}")
+    public ResponseEntity<Product> getProductById(@PathVariable int id){
+        Product p = prodServ.getProductById(id);
+        if (p != null)
+            return new ResponseEntity<>(p,HttpStatus.OK);
+        else
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }
