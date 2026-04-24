@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -19,7 +20,7 @@ public class ProductController {
     private ProductDetailsService productDetailsService;
     @Autowired
     ProductService prodServ;
-
+/*
     @RequestMapping("/product")
     public List<ProductDetails> getProductsDetails(){
         return productDetailsService.getProductsDetails();
@@ -30,7 +31,7 @@ public class ProductController {
     }
     @PostMapping("/product")
     public void addProd(@RequestBody ProductDetails p){
-        /*SINCE WE ARE NOT DOING THE @RequestBody so for that we need to add annotation called @RequestBody*/
+        *//*SINCE WE ARE NOT DOING THE @RequestBody so for that we need to add annotation called @RequestBody*//*
          productDetailsService.addProduct(p);
     }
 
@@ -43,7 +44,7 @@ public class ProductController {
     @DeleteMapping("/product/{pId}")
     public String deleteProd(@PathVariable int pId){
         return productDetailsService.deleteProd(pId);
-    }
+    }*/
 
 //    =============================================================================================================
 
@@ -61,4 +62,18 @@ public class ProductController {
         else
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
+
+    @PostMapping("/product")
+    public ResponseEntity<?> addProduct_image(
+            @RequestPart("product") Product p,
+            @RequestPart("imageFile") MultipartFile imageData
+    ) {
+        try {
+            Product p1 = prodServ.addProduct_image(p, imageData);
+            return new ResponseEntity<>(p1, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }
