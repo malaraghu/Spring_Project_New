@@ -29,4 +29,32 @@ public class ProductService {
         return repo.save(p);
     }
 
+    public Product updateProduct(int id, Product p, MultipartFile imageData) throws IOException {
+
+        Product existing = repo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Product not found"));
+
+        existing.setName(p.getName());
+        existing.setDesc(p.getDesc());
+        existing.setBrand(p.getBrand());
+        existing.setPrice(p.getPrice());
+        existing.setCatagery(p.getCatagery());
+        existing.setReleaseDate(p.getReleaseDate());
+        existing.setAvailable(p.isAvailable());
+        existing.setQuantity(p.getQuantity());
+
+        // ✅ Only update image if new one is provided
+        if (imageData != null && !imageData.isEmpty()) {
+            existing.setImageName(imageData.getOriginalFilename());
+            existing.setImageType(imageData.getContentType());
+            existing.setImageData(imageData.getBytes());
+        }
+
+        return repo.save(existing);
+    }
+
+    public String deleteProduct(int id) {
+        repo.deleteById(id);
+        return "Delete success";
+    }
 }

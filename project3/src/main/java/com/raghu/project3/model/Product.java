@@ -11,48 +11,28 @@ public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;   // ✅ FIXED (was int)
+    private Integer id;
 
     private String name;
     private String desc;
     private String brand;
-
     private BigDecimal price;
-
     private String catagery;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date releaseDate;
 
     private boolean available;
-
-    private Integer quantity;   // ✅ FIXED
+    private Integer quantity;
 
     private String imageName;
     private String imageType;
 
     @Lob
+    @Column(length = 1000000) // Helpful for larger images
     private byte[] imageData;
 
     public Product() {}
-
-    @Override
-    public String toString() {
-        return "Product{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", desc='" + desc + '\'' +
-                ", brand='" + brand + '\'' +
-                ", price=" + price +
-                ", catagery='" + catagery + '\'' +
-                ", releaseDate=" + releaseDate +
-                ", available=" + available +
-                ", quantity=" + quantity +
-                ", imageName='" + imageName + '\'' +
-                ", imageType='" + imageType + '\'' +
-                ", imageData=" + Arrays.toString(imageData) +
-                '}';
-    }
 
     public Product(Integer id, String name, String desc, String brand,
                    BigDecimal price, String catagery, Date releaseDate,
@@ -72,8 +52,7 @@ public class Product {
         this.imageData = imageData;
     }
 
-    // getters and setters
-
+    // Getters and Setters
     public Integer getId() { return id; }
     public void setId(Integer id) { this.id = id; }
 
@@ -109,4 +88,9 @@ public class Product {
 
     public byte[] getImageData() { return imageData; }
     public void setImageData(byte[] imageData) { this.imageData = imageData; }
+
+    @Override
+    public String toString() {
+        return "Product{" + "id=" + id + ", name='" + name + "'}";
+    }
 }
