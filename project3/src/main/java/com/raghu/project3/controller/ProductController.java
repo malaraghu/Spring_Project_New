@@ -6,6 +6,7 @@ import com.raghu.project3.service.ProductDetailsService;
 import com.raghu.project3.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -69,11 +70,21 @@ public class ProductController {
             @RequestPart("imageFile") MultipartFile imageData
     ) {
         try {
+            System.out.println("-----------p=-----------"+p+"-0----------"+imageData);
             Product p1 = prodServ.addProduct_image(p, imageData);
             return new ResponseEntity<>(p1, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+    @GetMapping("/product/{id}/image")
+    public ResponseEntity<byte[]> getimageData(@PathVariable("id") int id){
+        Product p = prodServ.getProductById(id);
+
+
+        byte[] im = p.getImageData();
+        System.out.println("========================p " + im);
+        return ResponseEntity.ok().contentType(MediaType.valueOf(p.getImageType())).body(im);
     }
 
 }

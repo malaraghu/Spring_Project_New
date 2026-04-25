@@ -18,7 +18,7 @@ public class ProductService {
         return  repo.findAll();
     }
 
-    public Product getProductById(int id) {
+    public Product getProductById(Integer id) {
         return repo.findById(id).orElse(null);
     }
 
@@ -28,4 +28,5 @@ public class ProductService {
         p.setImageData(imageData.getBytes());
         return repo.save(p);
     }
+
 }

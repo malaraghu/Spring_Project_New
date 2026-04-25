@@ -3,6 +3,7 @@ package com.raghu.project3.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
+import java.util.Arrays;
 import java.util.Date;
 
 @Entity
@@ -34,6 +35,24 @@ public class Product {
     private byte[] imageData;
 
     public Product() {}
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", desc='" + desc + '\'' +
+                ", brand='" + brand + '\'' +
+                ", price=" + price +
+                ", catagery='" + catagery + '\'' +
+                ", releaseDate=" + releaseDate +
+                ", available=" + available +
+                ", quantity=" + quantity +
+                ", imageName='" + imageName + '\'' +
+                ", imageType='" + imageType + '\'' +
+                ", imageData=" + Arrays.toString(imageData) +
+                '}';
+    }
 
     public Product(Integer id, String name, String desc, String brand,
                    BigDecimal price, String catagery, Date releaseDate,
